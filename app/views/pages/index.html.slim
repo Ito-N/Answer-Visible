@@ -1,0 +1,22 @@
+h2.question-author 気になること・悩んでいることを気軽に質問
+h4 選択肢をつけてアンケートもできる！
+- @questions.each do |question|
+  .question-index-wrapper
+    .container
+      .row
+        .col-sm-8
+          .question-index-single
+            .user-area
+              .col-xs-1.user-icon-center
+                = image_tag question.user.icon_image.url,
+                  src: 'Image Not Found',
+                  onerror: 'this.error=null;this.src="icons/user_icon.png"',
+                  class: "img-circle user-icon-center-img"
+              .col-xs-10.user-question-content
+                = link_to question.title, question_path(id: question.id)
+                p = question.content.truncate(33)
+                ul.user-margin-zero.clearfix
+                  li.left = question.user.name
+                  li.left = "[#{question.category}]"
+                  li.left = "回答数:#{question.answers.count}"
+                  li.right = l question.created_at

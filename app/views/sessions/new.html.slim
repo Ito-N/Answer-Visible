@@ -1,0 +1,16 @@
+.users-new-wrapper
+  .container
+    .row
+      .col-md-offset-4.col-md-4.users-new-container
+        h1.text-center.text-white
+          | ログイン
+        = form_with scope: :session, url: login_path do |f|
+          .form-group
+            = f.label :メールアドレス, class: "text-white"
+            = f.text_field :email, class: "form-control"
+          .form-group
+            = f.label :パスワード, class: "text-white"
+            = f.password_field :password, class: "form-control"
+          = f.submit "ログイン", class: "btn-block btn-white"
+
+        = link_to "会員登録(無料)", new_user_path, class: "text-white"

@@ -1,0 +1,39 @@
+.question-author
+  h2.question-title 質問する
+  .question-index-wrapper
+    .container
+      .row
+        .col-sm-offset-2.col-sm-8
+          .question-index-single
+            h3.answer-content
+              | 質問内容
+            .col-sm-offset-1.col-sm-10.answer-que.clearfix
+              = form_with model: @question, local: true do |f|
+                .col-sm-8
+                  .form-group
+                    = f.text_field :title, class:"form-control", placeholder: "質問のタイトル"
+                .form_group
+                  = f.text_area :content, size: "20x10", class:"form-control", placeholder: "質問内容をご記入ください"
+
+                = f.fields_for :questionnaire do |i|
+                  .questionnaire.margin-top-dis30
+                    .col-sm-8
+                      .form-group
+                        = i.label :アンケート
+                        = i.text_field :option1, class:"form-control", placeholder: "アンケートの選択肢１"
+                        = i.text_field :option2, class:"form-control", placeholder: "アンケートの選択肢2"
+                        = i.hidden_field :question_id, :value => @question.id
+                      .image-category.margin-top-dis30
+                        .form-group
+                          = f.label :画像添付
+                          = f.file_field  :url
+                        .form-group
+                          = f.label :カテゴリ選択, class: "form-check-label dis-block"
+                          = f.select :category, ["人間関係・人生相談", "生活・暮らし","家電・電化製品","パソコン・スマートフォン",
+                                   "インターネット","趣味・娯楽","美容・ファッション","健康・病気","ビジネス・キャリア",
+                                   "社会","お金","学問・教育","旅行・レジャー","その他"], :prompt => "選択してください", class: "form-control"
+                .col-sm-offset-8.col-sm-4.margin-top-dis30
+                  - if logged_in?
+                    = f.submit "質問投稿", class: "btn btn-block btn-primary"
+                  - else
+                    = f.submit "ログイン", class: "btn btn-block btn-primary"

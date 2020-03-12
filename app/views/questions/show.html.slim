@@ -1,0 +1,97 @@
+.question-author
+  h2.question-title 質問・回答
+  .question-index-wrapper
+    .container
+      .row
+        .col-sm-offset-1.col-sm-8
+          .question-index-single
+            h2
+              = @question.title
+            ul.clearfix
+              li.info = l @question.created_at
+              li.info = "質問No.#{@question.id}"
+              li.info = "[#{@question.category}]"
+              li.info = "回答数:#{@question.answers.count}"
+            .user-area.clearfix
+              .col-xs-1
+                = image_tag @question.user.icon_image.url,
+                    src: 'Image Not Found',
+                    onerror: 'this.error=null;this.src="icons/user_icon.png"',
+                    class: "img-circle"
+              p.name-area.col-xs-9.col-xs-offset-1
+                = @question.user.name
+
+            .q_desc
+              = @question.content
+            .option
+              h3.option-top
+                | 回答選択肢
+              ul
+                .option-size
+                  li.option-design  = "1: #{@question.questionnaire.option1}"
+                  li.option-design  = "2: #{@question.questionnaire.option2}"
+
+            .col-xs-offset-4.col-xs-4.answer-que
+              - if logged_in?
+                = link_to "回答する", new_question_answer_path(question_id: @question.id), class: "btn btn-block btn-primary"
+              - else
+                = link_to "回答する", login_path, class: "btn btn-block btn-primary"
+            .answer-area
+              - if @question.answers.count == 0
+                p.answer-noth 現在回答を募集中です
+              - else
+                .tabs
+                  p[style="font-size: 24px;"] 回答集計結果
+                  input#all[type="radio" name="tab_item" checked]
+                  label.tab_item[for="all"]
+                    | 総合
+                  input#gender[type="radio" name="tab_item"]
+                  label.tab_item[for="gender"]
+                    | 男女別
+                  input#age[type="radio" name="tab_item"]
+                  label.tab_item[for="age"]
+                    | 年齢別
+                  #all_content.tab_content
+                    .tab_content_description
+                      p.c-txtsp.text-center
+                        = pie_chart @data
+                  #gender_content.tab_content
+                    .tab_content_description
+                      p.c-txtsp.text-center
+                        | 回答選択肢１を選んだ男女割合
+                        = pie_chart @data_gender_num1
+                      p.c-txtsp.text-center
+                        | 回答選択肢２を選んだ男女割合
+                        = pie_chart @data_gender_num2
+                  #age_content.tab_content
+                    .tab_content_description
+                      p.c-txtsp.text-center
+                        | 回答選択肢１を選んだ年齢割合
+                        = pie_chart @data_age_num1
+                      p.c-txtsp.text-center
+                        | 回答選択肢２を選んだ年齢割合
+                        = pie_chart @data_age_num2
+
+                h3 回答
+                hr
+              - @answers.each do |answer|
+                ul.clearfix
+                  li.side-right = l answer.created_at
+                .user-area.clearfix
+                  .col-xs-1
+                    = image_tag answer.user.icon_image.url,
+                        src: 'Image Not Found',
+                        onerror: 'this.error=null;this.src="icons/user_icon.png"',
+                        class: "user-icon-size img-circle"
+                  p.name-area.col-xs-9.col-xs-offset-1
+                    = answer.user.name
+                .q_desc
+                  = answer.sentence
+                .option
+                  h3.option-top
+                    | 回答結果
+                  - if answer.questionnaire_number == 1
+                    = "1: #{answer.question.questionnaire.option1}"
+                  -else
+                    = "2: #{answer.question.questionnaire.option2}"
+                hr

@@ -1,0 +1,43 @@
+.question-author
+  h2.question-title 回答する
+  .question-index-wrapper
+    .container
+      .row
+        .col-sm-offset-1.col-sm-8
+          .question-index-single
+            h2
+              = @question.title
+            ul.clearfix
+              li.info = l @question.created_at
+              li.info = "質問No.#{@question.id}"
+              li.info = "[#{@question.category}]"
+              li.info = "回答数:#{@question.answers.count}"
+            .user-area.clearfix
+              .col-xs-1
+                = image_tag @question.user.icon_image.url,
+                    src: 'Image Not Found',
+                    onerror: 'this.error=null;this.src="icons/user_icon.png"',
+                    class: "img-circle"
+              p.name-area.col-xs-9.col-xs-offset-1
+                = @question.user.name
+
+            .q_desc
+              = @question.content
+
+            h3.answer-content
+              | 回答内容
+            .col-sm-offset-1.col-sm-10.answer-que
+              = form_with model: @answer, local: true do |f|
+                .form_group
+                  = f.label :回答を詳しく入力してください
+                  = f.text_area :sentence, size: "10x10",class:"form-control form-height"
+                  = f.hidden_field :question_id, :value => @question.id
+                p.questionnaire-size 回答を選択肢からお選びください
+                .form-check-inline
+                  .radio-vertical
+                    = f.radio_button :questionnaire_number, 1, class: "form-check-input"
+                    = f.label :option1, @question.questionnaire.option1, class: "text-white form-check-label"
+                    = f.radio_button :questionnaire_number, 2, class: "form-check-input"
+                    = f.label :option2, @question.questionnaire.option2, class: "text-white form-check-label"
+                .col-sm-offset-4.col-sm-4.answer-que
+                  = f.submit "回答投稿", class: "btn btn-block btn-primary"

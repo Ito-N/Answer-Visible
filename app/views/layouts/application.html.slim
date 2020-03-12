@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title
+      | QAsite
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag "//www.google.com/jsapi", "chartkick"
+    link[href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"]
+    meta[content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"]
+
+  body
+    - flash.each do |key, value|
+      div.alert class="alert-#{key}"
+      = key
+      = value
+    nav.navbar.navbar-default.navbar-fixed-top.navbar-transparent
+      .container
+        = link_to "Q&A", root_path, class: "navbar-brand"
+        ul.nav.navbar-nav.navbar-right
+          - if logged_in?
+            li = link_to "ログアウト", logout_path, method: :delete, class: "navbar-brand"
+            li = link_to "質問する", new_question_path, class: "navbar-brand"
+            li = link_to "回答する", questions_path, class: "navbar-brand"
+          - else
+            li = link_to "ログイン", login_path, class: "navbar-brand"
+            li = link_to "新規会員登録", new_user_path, class: "navbar-brand"
+
+    = yield
+
+    javascript:
+      $(function(){
+      $(".alert").fadeOut(5000);
+      });
+
+    footer.footer.mt-5
+      p.container.text-center[style="font-size: 18px;"]
+        |  Created by NORIAKI ITO

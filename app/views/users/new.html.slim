@@ -1,0 +1,32 @@
+.users-new-wrapper
+  .container
+    .row
+      .col-md-offset-4.col-md-4.users-new-container.clearfix
+        h1.text-center 会員登録
+        = form_with model: @user, local: true do |f|
+          .form-group
+            = f.text_field :name, class: "form-control", placeholder: "名前"
+          .form-group
+            = f.select :age, @age, :prompt => "選択してください", class: "form-control"
+            = f.label :年生まれ, class: "text-white form-check-label"
+          .form-check-inline
+            = f.radio_button :gender, 1, class: "form-check-input"
+            = f.label :男性, class: "text-white form-check-label"
+            = f.radio_button :gender, 2, class: "form-check-input"
+            = f.label :女性, class: "text-white form-check-label"
+          .form-group
+            = f.select :address, @address, :prompt => "選択してください", class: "form-control"
+            = f.label :在住, class: "text-white form-check-label"
+          .form-group
+            = f.text_field :email, class: "form-control", placeholder: "メールアドレス"
+          .form-group
+            = f.password_field :password, class: "form-control", placeholder: "パスワード"
+          .form-group
+            = f.password_field :password_confirmation, class: "form-control", placeholder: "パスワード(確認)"
+          .form-group
+            = f.label :アイコン画像
+            = f.file_field  :icon_image
+
+          = f.submit "登録", class: "btn-block btn-white"
+
+        = link_to "ログイン", login_path, class: "text-white"
