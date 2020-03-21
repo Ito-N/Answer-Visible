@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new(question_params)
 
     if @question.save
-      redirect_to new_question_path, success: "投稿に成功しました"
+      redirect_to questions_path, success: "投稿に成功しました"
     else
       flash[:danger] = "投稿に失敗しました"
       render :new
@@ -25,12 +25,16 @@ class QuestionsController < ApplicationController
     arr_gender_num2 = []
     arr_age_num1 = []
     arr_age_num2 = []
+    @cnt_questionnaire1 = 0
+    @cnt_questionnaire2 = 0
     @answers.each { |ans|
       arr_all.push(ans.questionnaire_number)
       if ans.questionnaire_number == 1
+        @cnt_questionnaire1 += 1
         arr_gender_num1.push(ans.user.gender)
         arr_age_num1.push(Date.today.year - ans.user.age)
       else
+        @cnt_questionnaire2 += 1
         arr_gender_num2.push(ans.user.gender)
         arr_age_num2.push(Date.today.year - ans.user.age)
       end
@@ -113,6 +117,6 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :content, :url, :category, questionnaire_attributes: [:id, :question_id, :option1, :option2])
+    params.require(:question).permit(:title, :content, :category, questionnaire_attributes: [:id, :question_id, :option1, :option2])
   end
 end

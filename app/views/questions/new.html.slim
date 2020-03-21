@@ -25,9 +25,6 @@
                         = i.hidden_field :question_id, :value => @question.id
                       .image-category.margin-top-dis30
                         .form-group
-                          = f.label :画像添付
-                          = f.file_field  :url
-                        .form-group
                           = f.label :カテゴリ選択, class: "form-check-label dis-block"
                           = f.select :category, ["人間関係・人生相談", "生活・暮らし","家電・電化製品","パソコン・スマートフォン",
                                    "インターネット","趣味・娯楽","美容・ファッション","健康・病気","ビジネス・キャリア",

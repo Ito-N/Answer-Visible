@@ -57,20 +57,36 @@
                         = pie_chart @data
                   #gender_content.tab_content
                     .tab_content_description
-                      p.c-txtsp.text-center
-                        | 回答選択肢１を選んだ男女割合
+                      - if @cnt_questionnaire1 >= 1
+                        p.c-txtsp.text-center
+                          | 回答選択肢１を選んだ男女割合
                         = pie_chart @data_gender_num1
-                      p.c-txtsp.text-center
-                        | 回答選択肢２を選んだ男女割合
+                      - else
+                        p.c-txtsp.text-center
+                          | 回答選択肢１を選んだ人はいません
+                      - if @cnt_questionnaire2 >= 1
+                        p.c-txtsp.text-center
+                          | 回答選択肢２を選んだ男女割合
                         = pie_chart @data_gender_num2
+                      - else
+                          p.c-txtsp.text-center
+                            | 回答選択肢２を選んだ人はいません
                   #age_content.tab_content
                     .tab_content_description
-                      p.c-txtsp.text-center
-                        | 回答選択肢１を選んだ年齢割合
+                      - if @cnt_questionnaire1 >= 1
+                        p.c-txtsp.text-center
+                          | 回答選択肢１を選んだ年齢割合
                         = pie_chart @data_age_num1
-                      p.c-txtsp.text-center
-                        | 回答選択肢２を選んだ年齢割合
+                      - else
+                        p.c-txtsp.text-center
+                          | 回答選択肢１を選んだ人はいません
+                      - if @cnt_questionnaire2 >= 1
+                        p.c-txtsp.text-center
+                          | 回答選択肢２を選んだ年齢割合
                         = pie_chart @data_age_num2
+                      - else
+                        p.c-txtsp.text-center
+                          | 回答選択肢２を選んだ人はいません
 
                 h3 回答
                 hr
