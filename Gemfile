@@ -82,3 +82,5 @@ gem 'groupdate'
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
 gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
 gem 'twitter-bootstrap-rails' # Bootstrapの本体
+gem 'dotenv-rails'
+gem 'fog-aws'
