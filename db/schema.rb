@@ -20,23 +20,23 @@ ActiveRecord::Schema.define(version: 2020_02_26_072056) do
     t.integer "question_id"
     t.text "sentence"
     t.integer "questionnaire_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questionnaires", force: :cascade do |t|
     t.integer "question_id"
     t.string "option1"
     t.string "option2"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 2020_02_26_072056) do
     t.text "content"
     t.string "category"
     t.string "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 2020_02_26_072056) do
     t.integer "age"
     t.integer "address"
     t.string "icon_image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
   end
 
